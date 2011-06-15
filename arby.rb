@@ -1,7 +1,10 @@
 #!/usr/bin/env ruby
 require 'rubygems'
 require 'isaac'
+require 'net/http'
 require File.dirname(__FILE__) + '/config'
+require File.dirname(__FILE__) + '/lib/github'
+
 
 def standup_order(entries)
   filter = lambda do |symbol|
@@ -20,7 +23,7 @@ configure do |c|
 end
 
 on :connect do
-  join '#website'
+  join '#arby-test'
 end
 
 on :channel, /ws-([0-9]+)/ do |agilezen_num|
@@ -41,4 +44,10 @@ end
 
 on :channel, /^!standup(.*)/ do |entries|
   msg channel, "standup: #{standup_order(entries)}"
+end
+
+on :channel, /^!pull.*$/ do
+  %w[sa-website sa-common sa-backend sa-codewell].each {|repo|
+    msg channel, format_pull(repo, Github.pulls(repo)).join("\n")
+  }
 end
