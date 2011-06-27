@@ -14,7 +14,7 @@ def standup_order(entries)
 end
 
 configure do |c|
-  c.nick = 'arbybot-new'
+  c.nick = 'arbybot'
   c.server = SERVER
   c.port = PORT
   c.ssl = SSL
@@ -23,7 +23,7 @@ configure do |c|
 end
 
 on :connect do
-  join '#arby-test'
+  join '#website'
 end
 
 on :channel, /ws-([0-9]+)/ do |agilezen_num|
