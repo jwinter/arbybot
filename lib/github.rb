@@ -8,14 +8,21 @@ class Github
   base_uri 'github.com'
   basic_auth GITHUB_USER, GITHUB_PASS
   def self.pulls(repo)
-    Github.get("/api/v2/json/pulls/sonian/#{repo}/open") 
+    Github.get("/api/v2/json/pulls/sonian/#{repo}/open")["pulls"] 
   end
-end
 
-def format_pull(repo, resp)
-  ps = resp["pulls"]
-  ps.collect do |p|
+  def self.formatted_pull_requests(repo)
+    repo_pulls = self.pulls(repo)
+    return nil if repo_pulls.empty?
+    repo_pulls.collect do |p|
+      self.format_pull(repo, p)
+    end
+  end
+
+  def self.format_pull(repo, p)
     "#{repo} - #{p['title']} - #{p['issue_user']['login']}"
   end
+
 end
+
 

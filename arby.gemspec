@@ -8,6 +8,7 @@ Gem::Specification.new do |s|
   s.description = s.summary
   s.add_dependency('isaac','~> 0.2.6')
   s.add_dependency('httparty','~> 0.7.8')
+  s.add_development_dependency("rspec")
   s.bindir = '.'
   s.executables = ['arby.rb']
   s.require_path = 'lib'

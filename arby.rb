@@ -48,6 +48,8 @@ end
 
 on :channel, /^!pull.*$/ do
   %w[sa-website sa-common sa-backend sa-codewell].each {|repo|
-    msg channel, format_pull(repo, Github.pulls(repo)).join("\n")
+    Github.formatted_pull_requests(repo).each {|pull_msg|
+      msg(channel, pull_msg)
+    }
   }
 end
