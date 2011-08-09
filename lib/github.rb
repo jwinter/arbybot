@@ -13,7 +13,7 @@ class Github
 
   def self.formatted_pull_requests(repo)
     repo_pulls = self.pulls(repo)
-    return nil if repo_pulls.empty?
+    return [] if repo_pulls.empty?
     repo_pulls.collect do |p|
       self.format_pull(repo, p)
     end
