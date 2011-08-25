@@ -42,6 +42,10 @@ on :channel, /sonian-([0-9]+)/ do |jira_bug|
   msg channel, "sonian-#{jira_bug} https://sonian.onjira.com/browse/SONIAN-#{jira_bug}"
 end
 
+on :channel, /eng-([0-9]+)/ do |jira_bug|
+  msg channel, "eng-#{jira_bug} https://sonian.onjira.com/browse/ENG-#{jira_bug}"
+end
+
 on :channel, /^!standup(.*)/ do |entries|
   msg channel, "standup: #{standup_order(entries)}"
 end
