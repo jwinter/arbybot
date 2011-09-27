@@ -1,9 +1,11 @@
 #!/usr/bin/env ruby
+$:.unshift File.expand_path('lib', File.dirname(__FILE__))
 require 'rubygems'
 require 'isaac'
 require 'net/http'
 require File.dirname(__FILE__) + '/config'
-require File.dirname(__FILE__) + '/lib/github'
+require 'github'
+require 'commands'
 
 
 def standup_order(entries)
@@ -50,10 +52,9 @@ on :channel, /^!standup(.*)/ do |entries|
   msg channel, "standup: #{standup_order(entries)}"
 end
 
-on :channel, /^!pull.*$/ do
-  %w[sa-website sa-common sa-backend sa-codewell].each {|repo|
-    Github.formatted_pull_requests(repo).each {|pull_msg|
-      msg(channel, pull_msg)
-    }
-  }
+on :channel, /^!pull[s]? (.*)$/ do |args|
+  pull = Commands::PullCommand.new(args)
+  pull.messages do |cmd_out|
+    msg(channel, cmd_out)
+  end
 end
