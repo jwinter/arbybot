@@ -53,7 +53,7 @@ on :channel, /^!standup(.*)/ do |entries|
 end
 
 on :channel, /^!pull[s]? (.*)$/ do |args|
-  pull = Commands::PullCommand.new(args)
+  pull = Commands::PullCommand.new (args || "").split(' ').compact
   pull.messages do |cmd_out|
     msg(channel, cmd_out)
   end
