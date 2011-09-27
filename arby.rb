@@ -50,7 +50,7 @@ on :channel, /^!standup(.*)/ do |entries|
   msg channel, "standup: #{standup_order(entries)}"
 end
 
-on :channel, /^!pull.*$/ do
+on :channel, /(^!pull.*$)|(^bangpulls)/ do
   %w[sa-website sa-common sa-backend sa-codewell].each {|repo|
     Github.formatted_pull_requests(repo).each {|pull_msg|
       msg(channel, pull_msg)
