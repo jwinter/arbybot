@@ -1,4 +1,4 @@
-require 'lib/github'
+require 'spec_helper'
 
 describe "Github" do
   let(:pulls) {
@@ -6,9 +6,9 @@ describe "Github" do
      {"head"=>{"label"=>"sonian:486-fragile-search-spec", "sha"=>"ffd988c1d24bf2df39b30b68034db16caa92947e", "repository"=>{"name"=>"sa-website", "has_wiki"=>true, "created_at"=>"2009/03/25 21:53:26 -0700", "size"=>692, "watchers"=>1, "private"=>true, "language"=>"Ruby", "fork"=>false, "url"=>"https://github.com/sonian/sa-website", "pushed_at"=>"2011/06/30 12:11:04 -0700", "has_downloads"=>true, "open_issues"=>4, "homepage"=>"http://sonian.net", "has_issues"=>true, "organization"=>"sonian", "forks"=>2, "description"=>"Sonian Archive Website", "owner"=>"sonian"}, "ref"=>"486-fragile-search-spec", "user"=>{"gravatar_id"=>"69ee9382da01213a8133b9aca9847226", "name"=>"Sonian", "location"=>"Boston, MA", "blog"=>"http://sonian.net", "type"=>"Organization", "login"=>"sonian"}}, "votes"=>0, "number"=>14, "position"=>1.0, "gravatar_id"=>"f34d2984f36c86ecc19b32e7142a7354", "issue_updated_at"=>'Wed Jun 29 17:32:15 UTC 2011', "created_at"=>'Wed Jun 29 17:32:15 UTC 2011', "title"=>"[ws-486] fixed broken spec. meta-offset isn't really interesting to us, as long as it's not nil.", "body"=>"", "comments"=>0, "updated_at"=>'Wed Jun 29 17:33:02 UTC 2011', "diff_url"=>"https://github.com/sonian/sa-website/pull/14.diff", "issue_user"=>{"gravatar_id"=>"f34d2984f36c86ecc19b32e7142a7354", "name"=>"Ryan L. Bell", "location"=>"Cleveland(ish), OH", "blog"=>"http://kofno.github.com", "type"=>"User", "login"=>"kofno", "email"=>"ryan.l.bell@gmail.com"}, "patch_url"=>"https://github.com/sonian/sa-website/pull/14.patch", "mergeable"=>false, "labels"=>[], "issue_created_at"=>'Wed Jun 29 17:32:15 UTC 2011', "html_url"=>"https://github.com/sonian/sa-website/pull/14", "user"=>{"gravatar_id"=>"f34d2984f36c86ecc19b32e7142a7354", "name"=>"Ryan L. Bell", "location"=>"Cleveland(ish), OH", "blog"=>"http://kofno.github.com", "type"=>"User", "login"=>"kofno", "email"=>"ryan.l.bell@gmail.com"}, "state"=>"open", "base"=>{"label"=>"sonian:qa-staging", "sha"=>"e22cf3a0446843b79aa72c301cb014e5c916cea3", "repository"=>{"name"=>"sa-website", "has_wiki"=>true, "created_at"=>"2009/03/25 21:53:26 -0700", "size"=>692, "watchers"=>1, "private"=>true, "language"=>"Ruby", "fork"=>false, "url"=>"https://github.com/sonian/sa-website", "pushed_at"=>"2011/06/30 12:11:04 -0700", "has_downloads"=>true, "open_issues"=>4, "homepage"=>"http://sonian.net", "has_issues"=>true, "organization"=>"sonian", "forks"=>2, "description"=>"Sonian Archive Website", "owner"=>"sonian"}, "ref"=>"qa-staging", "user"=>{"gravatar_id"=>"69ee9382da01213a8133b9aca9847226", "name"=>"Sonian", "location"=>"Boston, MA", "blog"=>"http://sonian.net", "type"=>"Organization", "login"=>"sonian"}}}]
   }
   context "#formatted_pull_requests" do
-    it " returns nil on repos without a pull request" do
+    it " returns an empty array on repos without a pull request" do
       Github.should_receive(:pulls).with('sa-codewell').and_return([])
-      Github.formatted_pull_requests('sa-codewell').should be_nil
+      Github.formatted_pull_requests('sa-codewell').should == []
     end
 
     it " includes all pull requests from a repo" do
