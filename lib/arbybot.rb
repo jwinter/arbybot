@@ -1,0 +1,5 @@
+require 'rubygems'
+require 'isaac'
+require 'net/http'
+require 'github'
+require 'commands'

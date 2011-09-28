@@ -1,11 +1,7 @@
 #!/usr/bin/env ruby
 $:.unshift File.expand_path('lib', File.dirname(__FILE__))
-require 'rubygems'
-require 'isaac'
-require 'net/http'
+require 'arbybot'
 require File.dirname(__FILE__) + '/config'
-require 'github'
-require 'commands'
 
 
 def standup_order(entries)
