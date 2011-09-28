@@ -1,8 +1,12 @@
 #!/usr/bin/env ruby
 $:.unshift File.expand_path('lib', File.dirname(__FILE__))
-require 'arbybot'
-require File.dirname(__FILE__) + '/config'
 
+require 'rubygems'
+require 'bundler/setup'
+require 'arbybot'
+require 'isaac'
+
+include Commands
 
 def standup_order(entries)
   filter = lambda do |symbol|
@@ -12,7 +16,7 @@ def standup_order(entries)
 end
 
 configure do |c|
-  c.nick = 'arbybot'
+  c.nick = NICK
   c.server = SERVER
   c.port = PORT
   c.ssl = SSL
@@ -48,9 +52,6 @@ on :channel, /^!standup(.*)/ do |entries|
   msg channel, "standup: #{standup_order(entries)}"
 end
 
-on :channel, /^!pull[s]? (.*)$/ do |args|
-  pull = Commands::PullCommand.new (args || "").split(' ').compact
-  pull.messages do |cmd_out|
-    msg(channel, cmd_out)
-  end
-end
+on :channel, /^!pulls(.*)$/, &pull_command
+
+on :channel, /^bangpulls(.*)$/, &pull_command

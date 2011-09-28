@@ -2,3 +2,4 @@ config.rb
 Gemfile.lock
 *~
 
+/.rbenv-version

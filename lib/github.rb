@@ -1,5 +1,3 @@
-require File.dirname(__FILE__) + '/../config'
-require 'rubygems'
 require 'httparty'
 require 'pp'
 
